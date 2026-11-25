@@ -1,10 +1,19 @@
-const express = require('express'); // Funciona como um IMPORT 
+// IMPORTS Gerais
+
+const express = require('express'); 
 const conectarBanco = require('./config/database');
+const clienteRouter = require('./routes/clienteRoutes');
+
+/* ---------------------------------------------------------------- */
 
 const app = express(); // Cria e inicializa a aplicação
-const PORT = process.env.PORT;
+const PORT = process.env.PORT; // Roda na PORTA que está no .env
 
 app.use(express.urlencoded({ extended: true })); // Permite a coleta de dados enviados por formularios
+app.use(express.json()); // Permite a leitura de dados JSON
+app.use('/clientes', clienteRouter);
+
+/* ---------------------------------------------------------------- */
 
 app.get('/', (req, res) => {
     res.send('Sistema de Aluguel de Automoveis');
